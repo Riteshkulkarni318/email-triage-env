@@ -1,0 +1,66 @@
+name: email-triage-env
+version: "1.0.0"
+description: >
+  A real-world email triage and response environment where AI agents
+  classify, prioritize, route, and respond to business emails.
+  Models real customer support workflows used by thousands of companies.
+
+author: your-hf-username
+tags:
+  - email
+  - triage
+  - customer-support
+  - nlp
+  - real-world
+
+tasks:
+  - name: classify
+    difficulty: easy
+    description: Classify incoming emails into correct categories
+    max_steps: 5
+    reward_range: [0.0, 1.0]
+
+  - name: triage
+    difficulty: medium
+    description: Route emails to correct department with priority
+    max_steps: 5
+    reward_range: [0.0, 1.0]
+
+  - name: respond
+    difficulty: hard
+    description: Draft complete email responses meeting content requirements
+    max_steps: 5
+    reward_range: [0.0, 1.0]
+
+observation_space:
+  type: object
+  fields:
+    email_id: string
+    subject: string
+    body: string
+    sender: string
+    timestamp: string
+    task: string
+    step: integer
+    max_steps: integer
+
+action_space:
+  classify:
+    category: enum[spam, urgent, normal, promotional]
+    confidence: float[0.0, 1.0]
+    reason: string (optional)
+  triage:
+    category: enum[spam, urgent, normal, promotional]
+    department: enum[support, sales, billing, technical, hr]
+    priority: integer[1, 5]
+    reason: string (optional)
+  respond:
+    subject: string
+    body: string
+    tone: enum[professional, empathetic, firm]
+    resolved: boolean
+
+endpoints:
+  reset: POST /reset
+  step: POST /step
+  state: GET /state
