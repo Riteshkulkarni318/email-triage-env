@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.scripts]
-server = "server.app:app"
+server = "server.app:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
@@ -29,4 +29,4 @@ include = ["server*"]
 name = "email-triage-env"
 version = "1.0.0"
 tasks = ["classify", "triage", "respond"]
-entry_point = "server.app:app"
+entry_point = "server.app:main"
